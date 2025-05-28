@@ -1,0 +1,70 @@
+Step-by-Step Guide: Building the Retail Sales & Returns Dashboard in Power BI
+
+1. Import & Transform Data
+
+Load data from Superstore.xlsx into Power BI
+
+Use Power Query to:
+
+Remove whitespace from headers
+
+Convert Order Date, Ship Date to Date type
+
+Left join Returns to Orders using Order ID
+
+Merge People to Orders by Region
+
+
+2. Define Data Model
+
+Ensure these relationships:
+
+Orders[Order ID] ⇄ Returns[Order ID]
+
+Orders[Region] ⇄ People[Region]
+
+
+3. Build Key DAX Measures
+
+Total Sales = SUM(Orders[Sales])
+Total Returns = CALCULATE(COUNTROWS(Returns), Orders[OrderID] IN VALUES(Returns[OrderID]))
+Total Profit = SUM(Orders[Profit])
+Total Quantity = SUM(Orders[Quantity])
+Total Discount = SUM(Orders[Discount])
+Return Rate = DIVIDE([Returned Orders], DISTINCTCOUNT(Orders[Order ID]), 0)
+Profit Margin = DIVIDE([Total Profit], [Total Sales], 0)
+
+
+4. Create Report Pages
+
+Page 1: Superstore Dashboard
+
+KPI cards: Sales, Profit, Quantity, Return Rate
+
+Sales by State (Map)
+
+Return Rate by Category (Bar)
+
+Time-Series: Total Sales vs Profit (Line)
+
+Sales by Year (Bar)
+
+Sales by Ship Mode (Donut)
+
+
+5. Add Filters & Slicers
+
+Date Range (Order Date)
+
+Segment, Region, Category slicers for exploration
+
+
+6. Export & Publish
+
+Save .pbix to /pbix
+
+Export PNG of final dashboard to /images
+
+Push to GitHub with: README.md, step-by-step-guide.md, Excel source, PBIX file, and dashboard snapshot
+
+For walkthroughs, reach out or explore the repository!
